@@ -75,8 +75,8 @@
     content: "{{ matrix_client_element_configuration | to_nice_json }}"
     dest: "{{ matrix_client_element_data_path }}/config.json"
     mode: 0644
-    owner: "{{ matrix_user_username }}"
-    group: "{{ matrix_user_groupname }}"
+    owner: "{{ matrix_container_user_host_uid }}"
+    group: "{{ matrix_container_user_host_gid }}"
 
 - name: Ensure Element location sharing map style installed
   when: matrix_client_element_location_sharing_enabled | bool
@@ -84,10 +84,10 @@
     content: "{{ matrix_client_element_location_sharing_map_style | to_nice_json }}"
     dest: "{{ matrix_client_element_data_path }}/map_style.json"
     mode: 0644
-    owner: "{{ matrix_user_username }}"
-    group: "{{ matrix_user_groupname }}"
+    owner: "{{ matrix_container_user_host_uid }}"
+    group: "{{ matrix_container_user_host_gid }}"
 
-- name: Ensure Element Web config files installed
+- name: Ensure Element Web template files installed
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ matrix_client_element_data_path }}/{{ item.name }}"
@@ -97,6 +97,16 @@
   with_items:
     - {src: "{{ role_path }}/templates/labels.j2", name: "labels"}
     - {src: "{{ role_path }}/templates/env.j2", name: "env"}
+  when: "item.src is not none"
+
+- name: Ensure Element Web config files installed
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ matrix_client_element_data_path }}/{{ item.name }}"
+    mode: 0644
+    owner: "{{ matrix_container_user_host_uid }}"
+    group: "{{ matrix_container_user_host_gid }}"
+  with_items:
     - {src: "{{ matrix_client_element_page_template_welcome_path }}", name: "welcome.html"}
     - {src: "{{ matrix_client_element_embedded_pages_home_path }}", name: "home.html"}
   when: "item.src is not none"

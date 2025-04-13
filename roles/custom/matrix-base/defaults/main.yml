@@ -180,6 +180,11 @@ matrix_user_groupname: "matrix"
 # To use a specific user/group ID, override these variables.
 matrix_user_uid: ~
 matrix_user_gid: ~
+matrix_container_user_host_uid: ''
+matrix_container_user_host_gid: ''
+
+matrix_playbook_userns_enabled: false
+matrix_playbook_userns_offset: 0
 
 matrix_base_data_path: "/matrix"
 matrix_base_data_path_mode: "750"

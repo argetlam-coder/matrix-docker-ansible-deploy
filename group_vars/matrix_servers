@@ -15,6 +15,9 @@
 #                                                                      #
 ########################################################################
 
+matrix_playbook_userns_enabled: false
+matrix_playbook_userns_offset: 0
+
 # Controls whether to install Docker or not
 # Also see `devture_docker_sdk_for_python_installation_enabled`.
 matrix_playbook_docker_installation_enabled: true
@@ -3888,6 +3891,8 @@ exim_relay_base_path: "{{ matrix_base_data_path }}/exim-relay"
 
 exim_relay_uid: "{{ matrix_user_uid }}"
 exim_relay_gid: "{{ matrix_user_gid }}"
+exim_relay_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+exim_relay_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 exim_relay_hostname: "{{ matrix_server_fqn_matrix }}"
 
@@ -4097,9 +4102,12 @@ postgres_identifier: matrix-postgres
 postgres_architecture: "{{ matrix_architecture }}"
 
 postgres_base_path: "{{ matrix_base_data_path }}/postgres"
+postgres_passwd_file_path : "{{ matrix_playbook_passwd_file_path }}"
 
 postgres_uid: "{{ matrix_user_uid }}"
 postgres_gid: "{{ matrix_user_gid }}"
+postgres_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+postgres_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 postgres_connection_username: matrix
 postgres_db_name: matrix
@@ -4507,6 +4515,8 @@ ntfy_base_path: "{{ matrix_base_data_path }}/ntfy"
 
 ntfy_uid: "{{ matrix_user_uid }}"
 ntfy_gid: "{{ matrix_user_gid }}"
+ntfy_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+ntfy_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 ntfy_hostname: "{{ matrix_server_fqn_ntfy }}"
 
@@ -4545,6 +4555,8 @@ valkey_identifier: matrix-valkey
 
 valkey_uid: "{{ matrix_user_uid }}"
 valkey_gid: "{{ matrix_user_gid }}"
+valkey_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+valkey_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 valkey_base_path: "{{ matrix_base_data_path }}/valkey"
 
@@ -4798,6 +4810,11 @@ matrix_synapse_enabled: "{{ matrix_homeserver_implementation == 'synapse' }}"
 matrix_synapse_username: "{{ matrix_user_username }}"
 matrix_synapse_uid: "{{ matrix_user_uid }}"
 matrix_synapse_gid: "{{ matrix_user_gid }}"
+matrix_synapse_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+matrix_synapse_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
+
+matrix_synapse_passwd_file_path: "{{ matrix_playbook_passwd_file_path }}"
+matrix_synapse_group_file_path: "{{ matrix_playbook_group_file_path }}"
 
 matrix_synapse_federation_enabled: "{{ matrix_homeserver_federation_enabled }}"
 
@@ -6205,6 +6222,8 @@ traefik_base_path: "{{ matrix_base_data_path }}/traefik"
 
 traefik_uid: "{{ matrix_user_uid }}"
 traefik_gid: "{{ matrix_user_gid }}"
+traefik_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+traefik_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 # It's common for setups to deal with large file uploads which may take longer than the default readTimeout (60s).
 # This override (for the `web` entrypoint) also cascades to overriding the `web-secure` entrypoint and the `matrix-federation` entrypoint.
@@ -6217,7 +6236,7 @@ traefik_additional_entrypoints_auto: |
     ([matrix_playbook_internal_matrix_client_api_traefik_entrypoint_definition] if matrix_playbook_internal_matrix_client_api_traefik_entrypoint_enabled else [])
   }}
 
-traefik_config_providers_docker_endpoint: "{{ container_socket_proxy_endpoint if container_socket_proxy_enabled else 'unix:///var/run/docker.sock' }}"
+traefik_config_providers_docker_endpoint: "{{ container_socket_proxy_endpoint if container_socket_proxy_enabled else ('unix:///var/run/docker.sock' if not matrix_playbook_userns_enabled else 'unix:///var/run/docker-userns.sock') }}"
 
 traefik_container_image_registry_prefix_upstream: "{{ matrix_container_global_registry_prefix_override if matrix_container_global_registry_prefix_override else traefik_container_image_registry_prefix_upstream_default }}"
 

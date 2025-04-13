@@ -105,8 +105,8 @@
     src: "{{ role_path }}/templates/turnserver.conf.j2"
     dest: "{{ matrix_coturn_config_path }}"
     mode: 0644
-    owner: "{{ matrix_user_username }}"
-    group: "{{ matrix_user_groupname }}"
+    owner: "{{ matrix_container_user_host_uid }}"
+    group: "{{ matrix_container_user_host_gid }}"
 
 - name: Ensure coturn network is created in Docker
   when: matrix_coturn_container_network not in ['', 'host']

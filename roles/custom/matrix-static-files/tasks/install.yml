@@ -5,7 +5,7 @@
 
 ---
 
-- name: Ensure matrix-static-files paths exist
+- name: Ensure matrix-static-files base path exist
   ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
@@ -14,6 +14,16 @@
     group: "{{ matrix_user_groupname }}"
   with_items:
     - {path: "{{ matrix_static_files_base_path }}", when: true}
+  when: "item.when | bool"
+
+- name: Ensure matrix-static-files webserver paths exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: 0750
+    owner: "{{ matrix_container_user_host_uid }}"
+    group: "{{ matrix_container_user_host_gid }}"
+  with_items:
     - {path: "{{ matrix_static_files_config_path }}", when: true}
     - {path: "{{ matrix_static_files_public_path }}", when: true}
     - {path: "{{ matrix_static_files_public_well_known_path }}", when: true}

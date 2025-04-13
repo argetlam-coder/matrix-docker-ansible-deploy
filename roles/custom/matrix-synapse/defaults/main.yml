@@ -21,6 +21,10 @@ matrix_synapse_version: v1.127.1
 matrix_synapse_username: ''
 matrix_synapse_uid: ''
 matrix_synapse_gid: ''
+matrix_synapse_host_filesystem_uid: ''
+matrix_synapse_host_filesystem_gid: ''
+matrix_synapse_docker_userns_enabled: false
+matrix_synapse_docker_userns_offset: 0
 
 matrix_synapse_container_image_self_build: false
 matrix_synapse_container_image_self_build_repo: "https://github.com/{{ matrix_synapse_github_org_and_repo }}.git"
@@ -132,6 +136,9 @@ matrix_synapse_ext_path: "{{ matrix_synapse_base_path }}/ext"
 matrix_synapse_ext_s3_storage_provider_base_path: "{{ matrix_synapse_base_path }}/ext/s3-storage-provider"
 matrix_synapse_ext_s3_storage_provider_bin_path: "{{ matrix_synapse_ext_s3_storage_provider_base_path }}/bin"
 matrix_synapse_ext_s3_storage_provider_data_path: "{{ matrix_synapse_ext_s3_storage_provider_base_path }}/data"
+
+matrix_synapse_passwd_file_path: ''
+matrix_synapse_group_file_path: ''
 
 matrix_synapse_container_client_api_port: 8008
 

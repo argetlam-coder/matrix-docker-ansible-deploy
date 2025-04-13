@@ -23,7 +23,9 @@
     system: true
   register: matrix_user
 
-- name: Initialize matrix_user_uid and matrix_user_gid
+- name: Initialize matrix_user_uid, matrix_user_gid, matrix_container_user_host_uid and matrix_container_user_host_gid
   ansible.builtin.set_fact:
     matrix_user_uid: "{{ matrix_user.uid }}"
     matrix_user_gid: "{{ matrix_group.gid }}"
+    matrix_container_user_host_uid: "{{ matrix_user_uid if not matrix_playbook_userns_enabled else (matrix_user_uid | int + matrix_playbook_userns_offset) | string }}"
+    matrix_container_user_host_gid: "{{ matrix_user_gid if not matrix_playbook_userns_enabled else (matrix_user_gid | int + matrix_playbook_userns_offset) | string }}"

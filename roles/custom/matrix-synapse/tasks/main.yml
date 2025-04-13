@@ -8,6 +8,15 @@
 
 ---
 
+# If docker userns is activated, the files that are mounted in the container must have a different uid and gid on the Docker host.
+- name: Determine uid and gid for the directories which are mounted in the container
+  ansible.builtin.set_fact:
+    matrix_synapse_host_filesystem_uid: "{{ matrix_synapse_uid if not matrix_synapse_docker_userns_enabled else (matrix_synapse_uid | int + matrix_synapse_docker_userns_offset) | string }}"
+    matrix_synapse_host_filesystem_gid: "{{ matrix_synapse_gid if not matrix_synapse_docker_userns_enabled else (matrix_synapse_gid | int + matrix_synapse_docker_userns_offset) | string }}"
+  when: matrix_synapse_enabled | bool
+  tags:
+    - always
+
 - tags:
     - setup-all
     - setup-synapse

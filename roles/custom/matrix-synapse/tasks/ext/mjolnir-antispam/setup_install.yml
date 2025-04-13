@@ -20,6 +20,14 @@
   become: true
   become_user: "{{ matrix_synapse_username }}"
 
+- name: Ensure directories and files have the right permissions
+  ansible.builtin.file:
+    path: "{{ matrix_synapse_ext_path }}/mjolnir"
+    state: directory
+    owner: "{{ matrix_synapse_host_filesystem_uid }}"
+    group: "{{ matrix_synapse_host_filesystem_gid }}"
+    recurse: true
+
 - ansible.builtin.set_fact:
     matrix_synapse_modules: >
       {{

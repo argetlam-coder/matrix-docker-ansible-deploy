@@ -47,8 +47,8 @@
     path: "{{ matrix_synapse_rust_synapse_compress_state_base_path }}"
     state: directory
     mode: 0750
-    owner: "{{ matrix_synapse_uid }}"
-    group: "{{ matrix_synapse_gid }}"
+    owner: "{{ matrix_synapse_host_filesystem_uid }}"
+    group: "{{ matrix_synapse_host_filesystem_gid }}"
 
 - name: Ensure rust-synapse-compress-state image is pulled
   community.docker.docker_image:
