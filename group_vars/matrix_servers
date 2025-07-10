@@ -6322,6 +6322,8 @@ livekit_server_identifier: matrix-livekit-server
 
 livekit_server_uid: "{{ matrix_user_uid }}"
 livekit_server_gid: "{{ matrix_user_gid }}"
+livekit_docker_userns_enabled: "{{ matrix_playbook_userns_enabled }}"
+livekit_docker_userns_offset: "{{ matrix_playbook_userns_offset }}"
 
 livekit_server_base_path: "{{ matrix_base_data_path }}/livekit-server"
 
