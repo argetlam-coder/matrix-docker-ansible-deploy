@@ -16,8 +16,8 @@
     path: "{{ item.path }}"
     state: directory
     mode: 0750
-    owner: "{{ matrix_user_username }}"
-    group: "{{ matrix_user_groupname }}"
+    owner: "{{ matrix_user_name }}"
+    group: "{{ matrix_group_name }}"
   with_items:
     - {path: "{{ matrix_client_element_data_path }}", when: true}
     - {path: "{{ matrix_client_element_docker_src_files_path }}", when: "{{ matrix_client_element_container_image_self_build }}"}
@@ -42,7 +42,7 @@
     version: "{{ matrix_client_element_docker_image.split(':')[1] }}"
     force: "yes"
   become: true
-  become_user: "{{ matrix_user_username }}"
+  become_user: "{{ matrix_user_name }}"
   register: matrix_client_element_git_pull_results
   when: "matrix_client_element_container_image_self_build | bool"
 
@@ -92,8 +92,8 @@
     src: "{{ item.src }}"
     dest: "{{ matrix_client_element_data_path }}/{{ item.name }}"
     mode: 0644
-    owner: "{{ matrix_user_username }}"
-    group: "{{ matrix_user_groupname }}"
+    owner: "{{ matrix_user_name }}"
+    group: "{{ matrix_group_name }}"
   with_items:
     - {src: "{{ role_path }}/templates/labels.j2", name: "labels"}
     - {src: "{{ role_path }}/templates/env.j2", name: "env"}
