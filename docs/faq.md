@@ -313,7 +313,7 @@ exim_relay_enabled: false
 
 # You can also disable this to save more RAM,
 # at the expense of audio/video calls being unreliable.
-matrix_coturn_enabled: false
+coturn_enabled: false
 
 # This makes Synapse not keep track of who is online/offline.
 #
@@ -439,6 +439,19 @@ After verifying that everything still works after the Postgres upgrade, you can 
 To prevent double-logging, Docker logging is disabled by explicitly passing `--log-driver=none` to all containers. Due to this, you cannot view logs using `docker logs matrix-*`.
 
 See [this section](maintenance-and-troubleshooting.md#how-to-see-the-logs) on the page for maintenance and troubleshooting for more details to see the logs.
+
+### The server fails to start due to the `Unable to start service matrix-coturn.service` error. Why and how to solve it?
+
+The error is most likely because Traefik cannot obtain SSL certificates due to certain reasons such as wrong domain name configuration or port 80 being unavailable due to other services.
+
+If Traefik fails to obtain an SSL certificate for domain names such as `matrix.`, Traefik Certs Dumper cannot extract the SSL certificate out of there, and coturn cannot be started and the error occurs. Refer to these comments for details:
+
+- <https://github.com/spantaleev/matrix-docker-ansible-deploy/issues/3957#issuecomment-2599590441>
+- <https://github.com/spantaleev/matrix-docker-ansible-deploy/issues/4570#issuecomment-3364111466>
+
+If you are not sure what the problem is, at first make sure that you have set the "base domain" (`example.com`, **not `matrix.example.com`**) to `matrix_domain`. You should be able to find it at the top of your `vars.yml`.
+
+If it is correctly specified, look Traefik's logs (`journalctl -fu matrix-traefik.service`) for errors by Let's Encrypt for troubleshooting.
 
 ## Miscellaneous
 

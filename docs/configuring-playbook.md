@@ -51,8 +51,6 @@ For a more custom setup, see the [Other configuration options](#other-configurat
 
   - [Configuring Conduit](configuring-playbook-conduit.md), if you've switched to the [Conduit](https://conduit.rs) homeserver implementation
 
-  - [Configuring conduwuit](configuring-playbook-conduwuit.md), if you've switched to the [conduwuit](https://conduwuit.puppyirl.gay/) homeserver implementation
-
   - [Configuring continuwuity](configuring-playbook-continuwuity.md), if you've switched to the [continuwuity](https://continuwuity.org) homeserver implementation
 
   - [Configuring Dendrite](configuring-playbook-dendrite.md), if you've switched to the [Dendrite](https://matrix-org.github.io/dendrite) homeserver implementation
@@ -69,8 +67,6 @@ For a more custom setup, see the [Other configuration options](#other-configurat
   - [Adjusting SSL certificate retrieval](configuring-playbook-ssl-certificates.md) (advanced)
 
   - [Adjusting email-sending settings](configuring-playbook-email.md)
-
-  - [Setting up ma1sd Identity Server](configuring-playbook-ma1sd.md)
 
   - [Setting up Dynamic DNS](configuring-playbook-dynamic-dns.md)
 
@@ -166,27 +162,17 @@ Bridges can be used to connect your Matrix installation with third-party communi
 
 - [Setting up Appservice Discord bridging](configuring-playbook-bridge-appservice-discord.md)
 
-- [Setting up Appservice Slack bridging](configuring-playbook-bridge-appservice-slack.md)
-
 - [Setting up Appservice Kakaotalk bridging](configuring-playbook-bridge-appservice-kakaotalk.md)
 
 - [Setting up Beeper LinkedIn bridging](configuring-playbook-bridge-beeper-linkedin.md)
 
 - [Setting up matrix-hookshot](configuring-playbook-bridge-hookshot.md) — a bridge between Matrix and multiple project management services, such as [GitHub](https://github.com), [GitLab](https://about.gitlab.com) and [JIRA](https://www.atlassian.com/software/jira).
 
-- [Setting up MX Puppet Slack bridging](configuring-playbook-bridge-mx-puppet-slack.md)
-
-- [Setting up MX Puppet Instagram bridging](configuring-playbook-bridge-mx-puppet-instagram.md)
-
-- [Setting up MX Puppet Twitter bridging](configuring-playbook-bridge-mx-puppet-twitter.md)
-
-- [Setting up MX Puppet Discord bridging](configuring-playbook-bridge-mx-puppet-discord.md)
-
 - [Setting up MX Puppet GroupMe bridging](configuring-playbook-bridge-mx-puppet-groupme.md)
 
-- [Setting up MX Puppet Steam bridging](configuring-playbook-bridge-mx-puppet-steam.md)
+- [Setting up Steam bridging](configuring-playbook-bridge-steam.md)
 
-- [Setting up Go Skype Bridge bridging](configuring-playbook-bridge-go-skype-bridge.md)
+- [Setting up MX Puppet Steam bridging](configuring-playbook-bridge-mx-puppet-steam.md)
 
 - [Setting up Postmoogle email bridging](configuring-playbook-bridge-postmoogle.md)
 
@@ -247,11 +233,11 @@ Various services that don't fit any other categories.
 
 - [Setting up Matrix RTC](configuring-playbook-matrix-rtc.md) (optional)
 
-- [Setting up Synapse Auto Invite Accept](configuring-playbook-synapse-auto-accept-invite.md)
-
 - [Setting up synapse-auto-compressor](configuring-playbook-synapse-auto-compressor.md) for compressing the database on Synapse homeservers
 
 - [Setting up Matrix Corporal](configuring-playbook-matrix-corporal.md) (advanced)
+
+- [Setting up Matrix.to](configuring-playbook-matrixto.md)
 
 - [Setting up Etherpad](configuring-playbook-etherpad.md)
 
@@ -269,7 +255,11 @@ Various services that don't fit any other categories.
 
 **Note**: since a deprecated or unmaintained service will not be updated, its bug or vulnerability will be unlikely to get patched. It is recommended to migrate from the service to an alternative if any, and make sure to do your own research before you decide to keep it running nonetheless.
 
+- [Configuring conduwuit](configuring-playbook-conduwuit.md) (removed; this component has been abandoned and unmaintained)
+
 - [Setting up the Sliding Sync proxy](configuring-playbook-sliding-sync-proxy.md) for clients which require Sliding Sync support (like old Element X versions, before it got switched to Simplified Sliding Sync)
+
+- [Setting up Appservice Slack bridging](configuring-playbook-bridge-appservice-slack.md) (removed; this component has been discontinued)
 
 - [Setting up Appservice Webhooks bridging](configuring-playbook-bridge-appservice-webhooks.md) (deprecated; the bridge's author suggests taking a look at [matrix-hookshot](https://github.com/matrix-org/matrix-hookshot) as a replacement, which can also be [installed using this playbook](configuring-playbook-bridge-hookshot.md))
 
@@ -279,10 +269,24 @@ Various services that don't fit any other categories.
 
 - [Setting up Go-NEB](configuring-playbook-bot-go-neb.md) (unmaintained; the bridge's author suggests taking a look at [matrix-hookshot](https://github.com/matrix-org/matrix-hookshot) as a replacement, which can also be [installed using this playbook](configuring-playbook-bridge-hookshot.md))
 
+- [Setting up Go Skype Bridge bridging](configuring-playbook-bridge-go-skype-bridge.md) (removed; Skype has been discontinued since May 2025)
+
+- [Setting up ma1sd Identity Server](configuring-playbook-ma1sd.md) (removed; this component has been unmaintained for a long time, so it has been removed from the playbook.)
+
 - [Setting up matrix-bot-chatgpt](configuring-playbook-bot-chatgpt.md) (unmaintained; the bridge's author suggests taking a look at [baibot](https://github.com/etkecc/baibot) as a replacement, which can also be [installed using this playbook](configuring-playbook-bot-baibot.md))
 
 - [Setting up Mautrix Facebook bridging](configuring-playbook-bridge-mautrix-facebook.md) (deprecated in favor of the Messenger/Instagram bridge with [mautrix-meta-messenger](configuring-playbook-bridge-mautrix-meta-messenger.md))
 
 - [Setting up Mautrix Instagram bridging](configuring-playbook-bridge-mautrix-instagram.md) (deprecated in favor of the Messenger/Instagram bridge with [mautrix-meta-instagram](configuring-playbook-bridge-mautrix-meta-instagram.md))
 
+- [Setting up MX Puppet Discord bridging](configuring-playbook-bridge-mx-puppet-discord.md) (removed; this component has been unmaintained for a long time, so it has been removed from the playbook. Consider [setting up Mautrix Discord bridging](configuring-playbook-bridge-mautrix-discord.md))
+
+- [Setting up MX Puppet Instagram bridging](configuring-playbook-bridge-mx-puppet-instagram.md) (removed; this component has been unmaintained for a long time, so it has been removed from the playbook. Consider [setting up Instagram bridging via Mautrix Meta](configuring-playbook-bridge-mautrix-meta-instagram.md))
+
 - [Setting up MX Puppet Skype bridging](configuring-playbook-bridge-mx-puppet-skype.md) (removed; this component has been broken for a long time, so it has been removed from the playbook. Consider [setting up Go Skype Bridge bridging](configuring-playbook-bridge-go-skype-bridge.md))
+
+- [Setting up MX Puppet Slack bridging](configuring-playbook-bridge-mx-puppet-slack.md) (removed; this component has been unmaintained for a long time, so it has been removed from the playbook. Consider [setting up Mautrix Slack bridging](configuring-playbook-bridge-mautrix-slack.md))
+
+- [Setting up MX Puppet Twitter bridging](configuring-playbook-bridge-mx-puppet-twitter.md) (removed; this component has been unmaintained for a long time, so it has been removed from the playbook. Consider [setting up Mautrix Twitter bridging](configuring-playbook-bridge-mautrix-twitter.md))
+
+- [Setting up Synapse Auto Invite Accept](configuring-playbook-synapse-auto-accept-invite.md) (removed; since Synapse [v1.109.0](https://github.com/element-hq/synapse/releases/tag/v1.109.0) the same feature is available natively.)
